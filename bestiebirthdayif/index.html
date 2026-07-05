@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HBD Bestie 💗 (girl → girl)</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ffb3c6;--hot:#ff5d8f;--lilac:#cdb4f6;--cream:#fff7fa;--ink:#5c374c}
+*{margin:0;box-sizing:border-box}
+body{font-family:Quicksand,sans-serif;background:var(--cream);color:var(--ink)}
+h1,h2{font-family:Pacifico,cursive;font-weight:400}
+/* S1: bracelet */
+.brc{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;background:radial-gradient(circle at 50% 0,#fff,var(--cream))}
+.brc h1{font-size:clamp(2rem,7vw,3.4rem);color:var(--hot)}
+.brc .sub{margin:10px 0 40px;font-size:.9rem}
+.string{width:min(90vw,520px);height:120px;border-bottom:4px dashed var(--lilac);border-radius:50%;display:flex;align-items:flex-end;justify-content:center;gap:10px;padding-bottom:0}
+.bead{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;cursor:pointer;background:#eee;color:transparent;transition:all .5s cubic-bezier(.5,1.8,.4,1);transform:scale(.7);-webkit-tap-highlight-color:transparent}
+.bead.on{color:#fff;transform:scale(1.05) rotate(360deg);box-shadow:0 6px 14px rgba(255,93,143,.35)}
+.done{margin-top:40px;font-size:1.15rem;opacity:0;transition:opacity 1s}
+.done.show{opacity:1}
+.heartp{position:fixed;animation:hf 4s linear forwards;pointer-events:none;font-size:20px}
+@keyframes hf{to{transform:translateY(-80vh) rotate(30deg);opacity:0}}
+.flor{position:absolute;font-size:30px;opacity:.6;animation:sw 3s ease-in-out infinite alternate}
+@keyframes sw{to{transform:rotate(9deg)}}
+/* S2: reasons */
+.why{background:#fff;padding:80px 24px;text-align:center}
+.why h2{font-size:2.4rem;color:var(--hot);margin-bottom:36px}
+.hearts{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:760px;margin:auto}
+.hcard{width:200px;background:var(--pink);border-radius:22px;padding:28px 18px;cursor:pointer;transition:transform .3s;color:#fff;font-weight:700}
+.hcard:hover{transform:scale(1.05) rotate(-2deg)}
+.hcard .big{font-size:34px;display:block;margin-bottom:8px}
+.hcard.open{background:var(--lilac)}
+/* S3: pinky promise */
+.pinky{padding:80px 24px;text-align:center;background:linear-gradient(var(--cream),#ffe3ec)}
+.pinky h2{font-size:2.4rem;color:var(--hot)}
+.pinky p{margin:10px 0 28px}
+.pbtn{font-size:60px;background:none;border:none;cursor:pointer;transition:transform .2s}
+.pbtn:hover{transform:scale(1.2) rotate(-10deg)}
+#vow{margin-top:18px;font-family:Pacifico;font-size:1.4rem;color:var(--hot);min-height:1.6em}
+footer{text-align:center;padding:24px;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#b58aa0}
+</style>
+</head>
+<body>
+
+<!-- Section 1 -->
+<section class="brc">
+  <span class="flor" style="top:8%;left:8%">🌸</span>
+  <span class="flor" style="top:14%;right:9%;animation-delay:.8s">💮</span>
+  <span class="flor" style="bottom:12%;left:12%;animation-delay:1.4s">🌷</span>
+  <h1>Happy Birthday, Bestie!</h1>
+  <div class="sub">tap every bead to string our friendship bracelet 📿</div>
+  <div class="string" id="string"></div>
+  <div class="done" id="done">💗 <b>BESTIE</b> — official, threaded & forever. Just like us since day one.</div>
+</section>
+
+<!-- Section 2 -->
+<section class="why">
+  <h2>Why you're my person</h2>
+  <div class="hearts">
+    <div class="hcard" data-msg="You laugh at my jokes even the terrible ones 😭"><span class="big">💗</span>tap me</div>
+    <div class="hcard" data-msg="You always know when I need chai & a rant session ☕"><span class="big">💜</span>tap me</div>
+    <div class="hcard" data-msg="You hype me up like I'm a whole celebrity ✨"><span class="big">💖</span>tap me</div>
+    <div class="hcard" data-msg="Your closet is legally also my closet 👗"><span class="big">💝</span>tap me</div>
+  </div>
+</section>
+
+<!-- Section 3 -->
+<section class="pinky">
+  <h2>Pinky promise?</h2>
+  <p>Tap the pinky to renew our best-friend contract for another year</p>
+  <button class="pbtn" onclick="vow()">🤙</button>
+  <div id="vow"></div>
+</section>
+<footer>besties before everything · est. forever</footer>
+
+<script>
+var word='BESTIE',cols=['#ff5d8f','#cdb4f6','#ffb3c6','#f9a03f','#7bd389','#5bc8f5'];
+var s=document.getElementById('string'),on=0;
+word.split('').forEach(function(ch,i){
+  var b=document.createElement('div');b.className='bead';b.textContent=ch;
+  b.onclick=function(){
+    if(b.classList.contains('on'))return;
+    b.classList.add('on');b.style.background=cols[i];
+    hearts(3);
+    if(++on===word.length)document.getElementById('done').classList.add('show');
+  };
+  s.appendChild(b);
+});
+function hearts(n){
+  var e=['💗','💜','🌸','✨'];
+  for(var i=0;i<n;i++){
+    var h=document.createElement('div');h.className='heartp';
+    h.textContent=e[Math.floor(Math.random()*e.length)];
+    h.style.left=Math.random()*100+'vw';h.style.top='90vh';
+    h.style.animationDelay=(Math.random()*.5)+'s';
+    document.body.appendChild(h);
+    setTimeout(function(x){return function(){x.remove()}}(h),4600);
+  }
+}
+document.querySelectorAll('.hcard').forEach(function(c){
+  c.addEventListener('click',function(){
+    c.classList.add('open');
+    c.innerHTML='<span class="big">🥹</span>'+c.getAttribute('data-msg');
+    hearts(4);
+  });
+});
+function vow(){
+  document.getElementById('vow').textContent='Contract renewed! Same chaos, one more year 💗';
+  hearts(12);
+}
+</script>
+</body>
+</html>
