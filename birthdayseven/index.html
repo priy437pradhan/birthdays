@@ -1,0 +1,97 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Scrapbook — Zoya turns 13</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f7f1e3;--tape:#ffd6e0;--tape2:#d0f0e6;--marker:#e4573d;--ink:#33302b}
+*{margin:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);background-image:radial-gradient(#e5dcc5 1px,transparent 1px);background-size:22px 22px}
+.hand{font-family:Caveat,cursive}
+/* SECTION 1: scrapbook cover */
+.cover{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+.cover h1{font-family:Caveat;font-size:clamp(3rem,10vw,5.5rem);color:var(--marker);transform:rotate(-3deg)}
+.cover .doodle{font-size:2rem;margin:10px 0}
+.polas{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:34px;perspective:1200px}
+.pola{width:180px;height:210px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.4,1.4,.5,1);-webkit-tap-highlight-color:transparent}
+.pola.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;background:#fff;box-shadow:0 8px 20px rgba(0,0,0,.14);padding:12px 12px 40px;display:flex;flex-direction:column}
+.face .ph{flex:1;display:flex;align-items:center;justify-content:center;font-size:56px;background:linear-gradient(135deg,#ffe9f0,#e3f4ff)}
+.face .cap{font-family:Caveat;font-size:1.2rem;text-align:center;margin-top:8px}
+.back{transform:rotateY(180deg);align-items:center;justify-content:center;text-align:center;padding:20px}
+.back b{color:var(--marker);font-size:1.05rem}
+.back .hand{font-size:1.35rem;margin-top:6px}
+.tape-strip{position:absolute;top:-12px;left:50%;transform:translateX(-50%) rotate(-4deg);width:80px;height:24px;background:var(--tape);opacity:.85;z-index:2}
+.pola:nth-child(2n) .tape-strip{background:var(--tape2);transform:translateX(-50%) rotate(5deg)}
+.pola:nth-child(1){transform:rotate(-4deg)}.pola:nth-child(2){transform:rotate(3deg)}.pola:nth-child(3){transform:rotate(-2deg)}.pola:nth-child(4){transform:rotate(4deg)}
+.pola:nth-child(1).flip{transform:rotate(-4deg) rotateY(180deg)}.pola:nth-child(2).flip{transform:rotate(3deg) rotateY(180deg)}.pola:nth-child(3).flip{transform:rotate(-2deg) rotateY(180deg)}.pola:nth-child(4).flip{transform:rotate(4deg) rotateY(180deg)}
+.hint{margin-top:34px;font-family:Caveat;font-size:1.4rem;color:#8b8578;animation:wig 2s infinite alternate}
+@keyframes wig{to{transform:rotate(2deg)}}
+/* SECTION 2: memory strip */
+.strip{padding:80px 24px;text-align:center}
+.strip h2{font-family:Caveat;font-size:3rem;color:var(--marker);transform:rotate(-2deg)}
+.years{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+.yr{background:#fff;box-shadow:0 5px 14px rgba(0,0,0,.1);padding:16px;width:130px;cursor:pointer;transition:transform .25s}
+.yr:hover{transform:translateY(-8px) rotate(-2deg)}
+.yr .n{font-size:1.6rem;font-weight:700}
+.yr .hand{font-size:1.15rem;color:#7a7466}
+/* SECTION 3: sticker rsvp */
+.stick{padding:80px 24px;text-align:center;background:var(--tape)}
+.stick h2{font-family:Caveat;font-size:3rem;transform:rotate(1deg)}
+.stick p{margin:8px 0 26px}
+.sticker{display:inline-block;background:#fff;border-radius:50%;width:130px;height:130px;margin:10px;box-shadow:0 6px 16px rgba(0,0,0,.15);font-size:1rem;font-weight:700;cursor:pointer;border:4px dashed var(--marker);transition:transform .2s;line-height:1.2;padding:20px;font-family:'DM Sans'}
+.sticker:hover{transform:rotate(-6deg) scale(1.08)}
+#peel{margin-top:22px;font-family:Caveat;font-size:1.6rem;min-height:1.6em;color:var(--marker)}
+footer{text-align:center;padding:24px;background:var(--tape);font-family:Caveat;font-size:1.2rem;color:#8a4a56}
+</style>
+</head>
+<body>
+
+<!-- Section 1 -->
+<section class="cover">
+  <h1>Zoya's Scrapbook Bash</h1>
+  <div class="doodle">✂️ 🌸 📸 🌼 🧷</div>
+  <div class="polas">
+    <div class="pola"><div class="tape-strip"></div><div class="face"><div class="ph">🎂</div><div class="cap">flip me!</div></div><div class="face back"><b>WHEN</b><div class="hand">Sat, 19 Sept 2026<br>3 PM sharp-ish</div></div></div>
+    <div class="pola"><div class="tape-strip"></div><div class="face"><div class="ph">🗺️</div><div class="cap">flip me!</div></div><div class="face back"><b>WHERE</b><div class="hand">Zoya's terrace,<br>42 Palm Street</div></div></div>
+    <div class="pola"><div class="tape-strip"></div><div class="face"><div class="ph">👗</div><div class="cap">flip me!</div></div><div class="face back"><b>WEAR</b><div class="hand">90s / retro /<br>anything with flowers</div></div></div>
+    <div class="pola"><div class="tape-strip"></div><div class="face"><div class="ph">🎁</div><div class="cap">flip me!</div></div><div class="face back"><b>BRING</b><div class="hand">one printed photo<br>for the memory wall</div></div></div>
+  </div>
+  <div class="hint">↺ tap each polaroid to flip it</div>
+</section>
+
+<!-- Section 2 -->
+<section class="strip">
+  <h2>13 years of Zoya</h2>
+  <div class="years" id="years"></div>
+</section>
+
+<!-- Section 3 -->
+<section class="stick">
+  <h2>Peel your sticker</h2>
+  <p>Pick one — that's your RSVP!</p>
+  <button class="sticker" onclick="peel('Stuck on the guest list! See you there 📸')">I'M IN!<br>🌟</button>
+  <button class="sticker" onclick="peel('Aw, we\u2019ll tape a photo of you to the wall 💌')">CAN'T<br>MAKE IT 😢</button>
+  <div id="peel"></div>
+</section>
+<footer>cut, paste & celebrate — the khan family 🧷</footer>
+
+<script>
+var emo=['👶','🍼','🧸','🎈','🖍️','🎒','⚽','🎨','📚','🎤','🎧','🌈','📸'];
+var yrs=document.getElementById('years');
+for(var i=1;i<=13;i++){
+  (function(y){
+    var d=document.createElement('div');d.className='yr';
+    d.innerHTML='<div style="font-size:34px">'+emo[y-1]+'</div><div class="n">'+y+'</div><div class="hand">tap!</div>';
+    d.onclick=function(){d.querySelector('.hand').textContent=y===13?'the best one yet!':'age '+y+' ✔'};
+    yrs.appendChild(d);
+  })(i);
+}
+document.querySelectorAll('.pola').forEach(function(p){
+  p.addEventListener('click',function(){p.classList.toggle('flip')});
+});
+function peel(t){document.getElementById('peel').textContent=t}
+</script>
+</body>
+</html>

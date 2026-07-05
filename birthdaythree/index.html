@@ -1,0 +1,91 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A Letter for You — Ishaan turns 10</title>
+<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Libre+Baskerville&display=swap" rel="stylesheet">
+<style>
+:root{--kraft:#d9c3a3;--paper:#fbf7ef;--wax:#a4243b;--ink:#3c3227;--gold:#b98a2f}
+*{margin:0;box-sizing:border-box}
+body{font-family:'Libre Baskerville',serif;background:#efe6d6;color:var(--ink)}
+.hand{font-family:'Homemade Apple',cursive}
+/* SECTION 1: envelope */
+.stage{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px;background:radial-gradient(circle at 50% 20%,#f5edde,#e3d5bd)}
+.env{width:min(90vw,460px);height:300px;position:relative;filter:drop-shadow(0 18px 24px rgba(60,50,39,.25))}
+.body-,.flap{position:absolute;left:0;width:100%}
+.body-{bottom:0;height:200px;background:var(--kraft);border-radius:8px;z-index:2}
+.flap{top:0;height:0;border-left:calc(min(90vw,460px)/2) solid transparent;border-right:calc(min(90vw,460px)/2) solid transparent;border-top:170px solid #c9b08a;transform-origin:top;transition:transform 1s ease;z-index:4}
+.env.open .flap{transform:rotateX(180deg);z-index:1}
+.seal{position:absolute;top:130px;left:50%;transform:translateX(-50%);width:84px;height:84px;background:radial-gradient(circle at 35% 30%,#c94a5f,var(--wax) 70%);border-radius:50%;z-index:5;display:flex;align-items:center;justify-content:center;color:#f6d9de;font-size:34px;cursor:pointer;box-shadow:inset 0 -4px 8px rgba(0,0,0,.3);transition:transform .3s,opacity .5s;-webkit-tap-highlight-color:transparent}
+.seal:hover{transform:translateX(-50%) scale(1.08)}
+.env.open .seal{opacity:0;transform:translateX(-50%) scale(1.6) rotate(30deg);pointer-events:none}
+.letter{position:absolute;left:5%;width:90%;height:180px;bottom:14px;background:var(--paper);border-radius:6px;z-index:3;transition:transform 1.2s .5s ease,height 1.2s .5s;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;overflow:hidden}
+.env.open .letter{transform:translateY(-215px);height:230px;z-index:6;box-shadow:0 10px 30px rgba(0,0,0,.15)}
+.letter .hand{font-size:1.5rem;line-height:2.1;opacity:0;transition:opacity 1s 1.4s}
+.env.open .letter .hand{opacity:1}
+.stage .hint{margin-top:80px;letter-spacing:.3em;font-size:.7rem;text-transform:uppercase;animation:blink 2s infinite}
+@keyframes blink{50%{opacity:.35}}
+.sprig{position:fixed;font-size:26px;opacity:.5;animation:drift 6s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translateY(14px) rotate(10deg)}}
+/* SECTION 2: the details */
+.deets{background:var(--paper);padding:90px 24px;text-align:center;border-top:3px double var(--gold);border-bottom:3px double var(--gold)}
+.deets h2{font-size:1.9rem;margin-bottom:8px}
+.deets .hand{color:var(--wax);font-size:1.6rem}
+.row{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:34px}
+.item{min-width:160px}
+.item b{display:block;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+/* SECTION 3: reply */
+.reply{padding:90px 24px;text-align:center;background:#efe6d6}
+.reply h2{margin-bottom:26px}
+.stamp{display:inline-block;border:2px dashed var(--wax);color:var(--wax);padding:16px 30px;margin:8px;cursor:pointer;font-size:1rem;background:transparent;font-family:'Libre Baskerville';transition:all .25s}
+.stamp:hover{background:var(--wax);color:#fff;transform:rotate(-2deg) scale(1.04)}
+#out{margin-top:24px;font-size:1.4rem;min-height:1.8em}
+footer{text-align:center;padding:24px;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:#8a7a63}
+</style>
+</head>
+<body>
+
+<!-- Section 1 -->
+<section class="stage">
+  <span class="sprig" style="top:10%;left:8%">🌿</span>
+  <span class="sprig" style="top:20%;right:10%;animation-delay:1s">🥀</span>
+  <span class="sprig" style="bottom:14%;left:12%;animation-delay:2s">🌹</span>
+  <div class="env" id="env">
+    <div class="letter"><div class="hand">Dear friend,<br>Ishaan is turning ten —<br>and the celebration<br>wouldn't be complete<br>without you.</div></div>
+    <div class="flap"></div>
+    <div class="body-"></div>
+    <div class="seal" id="seal">❦</div>
+  </div>
+  <div class="hint" id="hint">— press the wax seal —</div>
+</section>
+
+<!-- Section 2 -->
+<section class="deets">
+  <h2>The Particulars</h2>
+  <div class="hand">a decade of Ishaan ✦</div>
+  <div class="row">
+    <div class="item"><b>Date</b>Sunday, 23 August 2026</div>
+    <div class="item"><b>Hour</b>Six o'clock in the evening</div>
+    <div class="item"><b>Place</b>The Courtyard, Hotel Pushpa, Cuttack</div>
+    <div class="item"><b>Attire</b>Vintage & velvet welcome</div>
+  </div>
+</section>
+
+<!-- Section 3 -->
+<section class="reply">
+  <h2>Kindly reply by post… or by tap</h2>
+  <button class="stamp" onclick="ans('Delighted! Your seat at the table is set. ❦')">I shall attend</button>
+  <button class="stamp" onclick="ans('You will be dearly missed. 🥀')">Regretfully, no</button>
+  <div id="out" class="hand"></div>
+</section>
+<footer>sealed with love · the mishra family</footer>
+
+<script>
+document.getElementById('seal').addEventListener('click',function(){
+  document.getElementById('env').classList.add('open');
+  document.getElementById('hint').style.opacity=0;
+});
+function ans(t){document.getElementById('out').textContent=t}
+</script>
+</body>
+</html>

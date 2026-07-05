@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Butterfly Meadow — Sara turns 6</title>
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--sky:#e7f4fb;--grass:#bfe3b4;--grass2:#8fcf82;--berry:#c2559d;--sun:#ffd45e;--ink:#3d5245}
+*{margin:0;box-sizing:border-box}
+body{font-family:Poppins,sans-serif;color:var(--ink)}
+h1,h2{font-family:Sacramento,cursive;font-weight:400}
+/* SECTION 1: meadow */
+.meadow{min-height:100vh;background:linear-gradient(var(--sky) 55%,var(--grass) 55%,var(--grass2));display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding:30px;cursor:pointer}
+.sun{position:absolute;top:7%;left:8%;width:80px;height:80px;background:radial-gradient(circle,#fff3c4,var(--sun) 65%);border-radius:50%;box-shadow:0 0 50px 14px rgba(255,212,94,.5);animation:spin 30s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.meadow h1{font-size:clamp(3rem,10vw,5.5rem);color:var(--berry);text-shadow:2px 2px 0 #fff}
+.meadow .sub{background:#fff;padding:8px 22px;border-radius:999px;font-size:.85rem;margin-top:10px;box-shadow:0 4px 10px rgba(0,0,0,.08)}
+.flower{position:absolute;bottom:-6px;font-size:46px;transform-origin:bottom;animation:sway 3.4s ease-in-out infinite alternate}
+@keyframes sway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.bfly{position:absolute;font-size:28px;pointer-events:none;animation:fly 7s ease-in-out forwards}
+@keyframes fly{
+  20%{transform:translate(-60px,-90px) rotate(-14deg)}
+  45%{transform:translate(50px,-190px) rotate(12deg)}
+  70%{transform:translate(-40px,-300px) rotate(-10deg)}
+  100%{transform:translate(30px,-460px) rotate(8deg);opacity:0}
+}
+.crown{margin-top:26px;font-size:1rem;background:rgba(255,255,255,.85);border-radius:16px;padding:14px 22px;max-width:420px;opacity:0;transform:translateY(14px);transition:all 1s}
+.crown.show{opacity:1;transform:none}
+/* SECTION 2: flutter facts */
+.facts{background:#fff;padding:90px 24px;text-align:center}
+.facts h2{font-size:3.2rem;color:var(--berry);margin-bottom:36px}
+.wings{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;max-width:860px;margin:auto}
+.wing{width:200px;background:linear-gradient(150deg,#fce7f4,#e7f4fb);border-radius:60px 12px 60px 12px;padding:28px 20px;transition:transform .3s;cursor:default}
+.wing:nth-child(2n){border-radius:12px 60px 12px 60px}
+.wing:hover{transform:translateY(-8px) rotate(-2deg)}
+.wing .ic{font-size:34px}
+.wing b{display:block;margin:8px 0 4px;color:var(--berry)}
+.wing span{font-size:.83rem}
+/* SECTION 3: rsvp net */
+.net{background:linear-gradient(var(--grass),var(--grass2));padding:90px 24px;text-align:center}
+.net h2{font-size:3.2rem;color:#fff;text-shadow:2px 2px 0 rgba(0,0,0,.12)}
+.net p{color:#2f4632;margin:6px 0 30px}
+.catch{display:inline-flex;flex-direction:column;align-items:center;background:#fff;border-radius:24px;padding:30px 40px;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.catch .jar{font-size:60px;transition:transform .3s}
+.catch button{margin-top:16px;background:var(--berry);color:#fff;border:none;padding:13px 34px;border-radius:999px;font-family:Poppins;font-weight:600;font-size:.95rem;cursor:pointer}
+.catch button:hover{transform:scale(1.05)}
+#caught{margin-top:14px;font-size:.9rem;color:var(--berry);font-weight:600;min-height:1.4em}
+footer{text-align:center;padding:24px;background:var(--grass2);color:#2f4632;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- Section 1 -->
+<section class="meadow" id="meadow">
+  <div class="sun"></div>
+  <h1>Sara's Butterfly Meadow</h1>
+  <div class="sub">🦋 tap anywhere — every tap sets a butterfly free</div>
+  <div class="crown" id="crown"><b>You found the flutter of 6!</b><br>Sara turns six on <b>Sunday, 18 Oct 2026, 10 AM</b> at Butterfly Park, Cuttack. Wings optional, smiles mandatory.</div>
+</section>
+
+<!-- Section 2 -->
+<section class="facts">
+  <h2>Little flutter facts</h2>
+  <div class="wings">
+    <div class="wing"><div class="ic">🧚</div><b>Fairy wings station</b><span>every guest gets a pair to decorate</span></div>
+    <div class="wing"><div class="ic">🐛</div><b>Caterpillar crawl race</b><span>sack race, but wigglier</span></div>
+    <div class="wing"><div class="ic">🌼</div><b>Nectar bar</b><span>juices, lemonades & fruit pops</span></div>
+    <div class="wing"><div class="ic">🎂</div><b>Garden cake</b><span>vanilla meadow with sugar butterflies</span></div>
+  </div>
+</section>
+
+<!-- Section 3 -->
+<section class="net">
+  <h2>Get caught in our net!</h2>
+  <p>Tap the jar to RSVP — we're collecting friends, not butterflies</p>
+  <div class="catch">
+    <div class="jar" id="jar">🫙</div>
+    <button onclick="catchMe()">Catch me — I'm coming! 🦋</button>
+    <div id="caught"></div>
+  </div>
+</section>
+<footer>flutter by · with love, the ali family</footer>
+
+<script>
+var meadow=document.getElementById('meadow'),taps=0;
+var bset=['🦋','🦋','🧚','🐝','🌸'];
+/* plant flowers along the bottom */
+var fl=['🌷','🌼','🌻','🌸','🌺','💐','🌷','🌼'];
+fl.forEach(function(f,i){
+  var d=document.createElement('div');d.className='flower';
+  d.style.left=(4+i*12)+'%';d.style.animationDelay=(i*.3)+'s';
+  d.style.fontSize=(38+Math.random()*18)+'px';
+  d.textContent=f;meadow.appendChild(d);
+});
+meadow.addEventListener('click',function(e){
+  var b=document.createElement('div');b.className='bfly';
+  b.textContent=bset[Math.floor(Math.random()*bset.length)];
+  b.style.left=e.clientX+'px';b.style.top=e.clientY+'px';
+  meadow.appendChild(b);
+  setTimeout(function(){b.remove()},7200);
+  if(++taps===6)document.getElementById('crown').classList.add('show');
+});
+function catchMe(){
+  document.getElementById('jar').textContent='🦋';
+  document.getElementById('jar').style.transform='scale(1.25)';
+  document.getElementById('caught').textContent='Caught! Your spot in the meadow is saved 🌼';
+}
+</script>
+</body>
+</html>
