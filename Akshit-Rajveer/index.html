@@ -30,30 +30,67 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased}
+html.lock,body.lock{overflow:hidden;height:100%}
+body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 .page{position:relative;max-width:470px;margin:0 auto;background:var(--cream);overflow:hidden;box-shadow:0 0 60px rgba(0,0,0,.7)}
 
-/* phulkari top ribbon */
+/* phulkari ribbon */
 .phulkari{height:10px;background:repeating-linear-gradient(90deg,var(--phulkari-pink) 0 12px,var(--marigold) 12px 24px,var(--gold-lt) 24px 36px,var(--henna) 36px 48px)}
 
-/* ---------- HERO ---------- */
-.hero{position:relative;height:100vh;height:100dvh;overflow:hidden;background:#170208}
-.hero-img{position:absolute;inset:0;background:url('images/image1.JPG') center/cover no-repeat;
+/* ============ HERO — ENVELOPE VIDEO ============ */
+.hero{position:relative;width:100%;height:100vh;height:100dvh;background:#170208;overflow:hidden}
+.video-gpu-accelerator{position:absolute;inset:0;z-index:1;transform:translate3d(0,0,0);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+#bgVideo{width:100%;height:100%;object-fit:cover;background:#170208;display:block}
+/* fallback photo shown only if the video is missing */
+.hero-fallback{position:absolute;inset:0;z-index:0;background:url('images/image1.JPG') center/cover no-repeat;
   transform:scale(1.08);animation:kb 18s ease-in-out infinite alternate;filter:saturate(1.05)}
 @keyframes kb{from{transform:scale(1.08) translateY(0)}to{transform:scale(1.18) translateY(-14px)}}
-.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,2,8,.72),rgba(23,2,8,.35) 40%,rgba(23,2,8,.92))}
-.hero-inner{position:relative;z-index:3;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:36px 22px}
-.kicker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-lt)}
-.hero-names{font-family:'Playfair Display',serif;font-size:52px;line-height:1.05;color:var(--gold-soft);margin:12px 0 4px;text-shadow:0 6px 26px rgba(0,0,0,.6)}
-.hero-names .amp{display:block;font-family:'Marcellus',serif;font-size:24px;color:var(--marigold);margin:6px 0}
-.hero-sub{font-family:'Marcellus',serif;font-size:13px;letter-spacing:3px;color:#f3ddb9;margin-top:10px}
-.hero-date{margin-top:18px;border-top:1px solid rgba(224,184,105,.5);border-bottom:1px solid rgba(224,184,105,.5);padding:8px 18px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--gold-soft)}
-.doli{font-size:22px;margin-bottom:6px}
-.scroll-cue{position:absolute;left:50%;transform:translateX(-50%);bottom:26px;z-index:4;color:var(--gold-soft);font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;text-align:center}
-.scroll-cue .chev{display:block;font-size:20px;animation:bob 1.7s ease-in-out infinite}
+.hero-shade{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(23,2,8,.55),rgba(23,2,8,.15) 42%,rgba(23,2,8,.85));
+  opacity:0;transition:opacity 1.2s ease}
+.hero.opened .hero-shade{opacity:1}
+
+/* tap to open */
+.tap-overlay{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  cursor:pointer;background:rgba(0,0,0,.18);transition:opacity .6s ease}
+.tap-overlay.hide{opacity:0;pointer-events:none}
+.wax-seal-pulse{position:relative;width:96px;height:96px;border-radius:50%;
+  border:2px dashed rgba(224,184,105,.8);background:rgba(224,184,105,.14);
+  display:flex;align-items:center;justify-content:center;color:var(--gold-soft);font-size:34px;
+  animation:pulseWave 2.1s infinite ease-in-out}
+@keyframes pulseWave{0%{transform:scale(.9);opacity:.55}50%{transform:scale(1.14);opacity:1}100%{transform:scale(.9);opacity:.55}}
+.tap-label{margin-top:20px;font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:4px;text-transform:uppercase;color:var(--gold-soft);text-shadow:0 2px 10px rgba(0,0,0,.8)}
+
+/* details layer that appears after the envelope opens */
+.details-content-layer{position:absolute;top:24%;left:6%;width:88%;max-height:64%;z-index:5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;
+  padding:22px 18px;opacity:0;border-radius:18px;
+  background:rgba(23,2,8,.28);box-shadow:0 12px 40px rgba(0,0,0,.35);
+  transform:translateZ(-180px) translateY(-10px) scale(.86);
+  transition:opacity 2s cubic-bezier(.15,1,.2,1),transform 2.2s cubic-bezier(.15,1,.2,1);pointer-events:none}
+.details-content-layer.active{opacity:1;transform:translateZ(0) translateY(0) scale(1);pointer-events:auto}
+.kicker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-lt);text-shadow:0 2px 8px rgba(0,0,0,.85)}
+.hero-names{font-family:'Playfair Display',serif;font-size:46px;line-height:1.06;color:var(--gold-soft);margin:6px 0 2px;text-shadow:0 6px 26px rgba(0,0,0,.75)}
+.hero-names .amp{display:block;font-family:'Marcellus',serif;font-size:22px;color:var(--marigold);margin:4px 0}
+.hero-sub{font-family:'Marcellus',serif;font-size:12.5px;letter-spacing:3px;color:#f3ddb9;text-shadow:0 2px 8px rgba(0,0,0,.85)}
+.hero-date{margin-top:6px;border-top:1px solid rgba(224,184,105,.55);border-bottom:1px solid rgba(224,184,105,.55);
+  padding:8px 18px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:3px;color:var(--gold-soft)}
+.bottom-divider{width:44px;height:1px;background:var(--gold-lt);margin:4px auto;opacity:.7}
+.doli{font-size:22px}
+
+.scroll-cue{position:absolute;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));z-index:8;
+  display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--gold-soft);cursor:pointer;
+  opacity:0;pointer-events:none;transform:translateX(-50%) translateY(18px);
+  transition:opacity 1s ease,transform 1s cubic-bezier(.16,1,.3,1);
+  background:rgba(23,2,8,.6);border:1px solid rgba(224,184,105,.75);padding:10px 22px 8px;border-radius:40px;
+  box-shadow:0 8px 22px rgba(0,0,0,.45)}
+.scroll-cue.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0);animation:cueGlow 2.6s ease-in-out 1s infinite}
+@keyframes cueGlow{0%,100%{box-shadow:0 8px 22px rgba(0,0,0,.45)}50%{box-shadow:0 8px 30px rgba(224,184,105,.55),0 8px 22px rgba(0,0,0,.45)}}
+.scroll-cue span{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3px;text-transform:uppercase}
+.scroll-cue .chev{font-size:20px;line-height:.7;color:var(--gold-lt);animation:bob 1.7s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 
-/* ---------- marquee (flowing text) ---------- */
+/* ============ marquee ============ */
 .marquee{overflow:hidden;background:linear-gradient(90deg,var(--maroon),var(--maroon-2),var(--maroon));border-top:1px solid rgba(224,184,105,.35);border-bottom:1px solid rgba(224,184,105,.35);padding:9px 0}
 .mq-track{display:flex;width:max-content;animation:mqL 26s linear infinite}
 .marquee.rtl .mq-track{animation:mqR 26s linear infinite}
@@ -61,12 +98,13 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 @keyframes mqL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes mqR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
-/* ---------- sections ---------- */
+/* ============ sections ============ */
 .section{padding:54px 26px;text-align:center;position:relative}
 .eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .section h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--maroon-2)}
 .orn{color:var(--gold);letter-spacing:.45em;font-size:14px;margin-top:14px;opacity:.85}
 .lead{max-width:370px;margin:16px auto 0;font-size:13.5px;line-height:1.8;color:#5c4650}
+.gurmukhi{font-size:22px;color:var(--marigold);font-family:'Marcellus',serif}
 
 /* families */
 .fam-grid{display:grid;gap:16px;margin-top:26px}
@@ -83,18 +121,49 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 .cd-box b{display:block;font-family:'Cinzel',serif;font-size:25px;color:var(--maroon-2);line-height:1}
 .cd-box small{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;display:block;margin-top:6px}
 
-/* events */
-.evt-stack{display:flex;flex-direction:column;gap:24px;margin-top:28px}
-.evt{border:1px solid rgba(184,135,62,.35);border-radius:18px;overflow:hidden;background:#fffaf0;box-shadow:0 14px 30px rgba(61,7,19,.14);text-align:left}
-.evt-photo{height:170px;background-size:cover;background-position:center;position:relative}
-.evt-photo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,2,8,.15),rgba(23,2,8,.65))}
-.evt-badge{position:absolute;left:14px;bottom:12px;z-index:2;font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-soft);background:rgba(61,7,19,.6);border:1px solid rgba(224,184,105,.55);padding:6px 12px;border-radius:30px}
-.evt-body{padding:20px 20px 22px}
-.evt-name{font-family:'Playfair Display',serif;font-size:24px;color:var(--maroon-2);line-height:1.1}
-.evt-date{font-size:12.5px;font-weight:600;color:var(--ink);margin-top:6px;letter-spacing:.3px}
-.evt-venue{font-size:12px;color:#5c4650;line-height:1.55;margin-top:8px}
-.evt-venue b{color:var(--henna);font-weight:600}
-.maplink{display:inline-block;margin-top:14px;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--marigold),var(--maroon-2));padding:9px 18px;border-radius:40px;text-decoration:none;box-shadow:0 8px 18px rgba(61,7,19,.28)}
+/* ============ EVENTS — SCRATCH CARDS ============ */
+.fest-stack{margin-top:30px;display:flex;flex-direction:column;gap:26px}
+.fcard{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(184,135,62,.35);
+  box-shadow:0 14px 34px rgba(61,7,19,.16);background:var(--cream)}
+.fcard-base{position:relative;z-index:1;padding:26px 22px;text-align:center;background:radial-gradient(ellipse at top,#fff9ef,var(--cream))}
+.f-day{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.f-name{font-family:'Playfair Display',serif;font-size:25px;font-weight:600;color:var(--maroon-2);margin-top:6px;line-height:1.1}
+.f-tag{font-family:'Playfair Display',serif;font-style:italic;color:var(--henna);font-size:12.5px;margin-top:3px}
+.f-line{width:36px;height:1px;background:var(--gold-lt);margin:12px auto}
+.f-date{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.4px}
+.f-venue{font-size:11.5px;color:#5a4650;line-height:1.55;margin-top:8px}
+.f-btns{margin-top:15px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.maplink{display:inline-block;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;font-weight:600;
+  color:#fff;background:linear-gradient(135deg,var(--marigold),var(--maroon-2));padding:9px 18px;border-radius:40px;
+  text-decoration:none;box-shadow:0 8px 18px rgba(61,7,19,.28)}
+.ics-btn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:600;color:var(--gold);background:transparent;border:1px solid var(--gold);border-radius:40px;padding:9px 18px;
+  transition:background .25s ease,color .25s ease}
+.ics-btn:hover{background:var(--gold);color:#fff}
+.scratch{position:absolute;inset:0;z-index:2;touch-action:pan-y;cursor:grab;display:block;width:100%;height:100%}
+.f-hint{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);z-index:3;pointer-events:none;
+  background:rgba(61,7,19,.62);color:#fff8ec;font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  padding:8px 15px;border-radius:40px;white-space:nowrap}
+.f-emblem{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none;text-align:center;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:rgba(255,248,236,.9)}
+.f-emblem .big{display:block;font-size:26px;margin-bottom:8px}
+.scratch,.f-hint,.f-emblem{transition:opacity .55s ease}
+.fcard.revealed .scratch,.fcard.revealed .f-hint,.fcard.revealed .f-emblem{opacity:0;pointer-events:none}
+
+/* heart scratch card for the wedding day */
+.fcard.heart{aspect-ratio:1/1;border:none;box-shadow:none;background:transparent;overflow:hidden;
+  -webkit-clip-path:url(#heartClip);clip-path:url(#heartClip);filter:drop-shadow(0 16px 26px rgba(92,15,30,.32))}
+.fcard.heart .fcard-base{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:16% 17% 20%;gap:2px;background:radial-gradient(ellipse at center,#fff7ec,var(--cream))}
+.fcard.heart .f-tag{display:none}
+.fcard.heart .f-name{font-size:22px}
+.fcard.heart .f-line{margin:8px auto}
+.fcard.heart .f-date{font-size:12px}
+.fcard.heart .f-venue{font-size:10px}
+.fcard.heart .f-btns{margin-top:10px;gap:6px}
+.fcard.heart .maplink,.fcard.heart .ics-btn{padding:7px 13px;font-size:7.5px}
+.fcard.heart .f-hint{display:none}
+.fcard.heart .f-emblem{font-size:12px;letter-spacing:2px;color:rgba(255,255,255,.94)}
 
 /* gallery */
 .gal{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:24px}
@@ -115,6 +184,13 @@ footer .fnames{font-family:'Playfair Display',serif;font-size:24px;color:#fff;ma
 footer .fmeta{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lt);margin-top:10px}
 footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:#e8d3ba;margin-top:16px;line-height:1.7}
 
+/* music toggle */
+.music-btn{position:fixed;top:14px;right:14px;z-index:60;width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--gold-lt);background:rgba(61,7,19,.6);color:var(--gold-soft);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.35);font-size:16px}
+.music-btn.playing{animation:mpulse 1.9s ease-in-out infinite}
+@keyframes mpulse{0%,100%{box-shadow:0 6px 16px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 6px rgba(224,184,105,.25)}}
+
 /* petals */
 .petals{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
 .petal{position:absolute;top:-40px;will-change:transform,opacity}
@@ -126,46 +202,79 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
 .slide-l{opacity:0;transform:translateX(-46px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
 .slide-r{opacity:0;transform:translateX(46px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
 .slide-l.in,.slide-r.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.reveal,.slide-l,.slide-r{opacity:1!important;transform:none!important}.hero-img{animation:none}.mq-track{animation:none}}
+@media (prefers-reduced-motion:reduce){.reveal,.slide-l,.slide-r{opacity:1!important;transform:none!important}.hero-fallback{animation:none}.mq-track{animation:none}}
 </style>
 </head>
 <body>
-<div class="petals" id="petals"></div>
+
+<!-- heart clip path for the wedding scratch card -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+      <path d="M0.5,1 C0.5,1 0,0.68 0,0.36 C0,0.14 0.16,0.02 0.32,0.02 C0.42,0.02 0.47,0.09 0.5,0.14 C0.53,0.09 0.58,0.02 0.68,0.02 C0.84,0.02 1,0.14 1,0.36 C1,0.68 0.5,1 0.5,1 Z"/>
+    </clipPath>
+  </defs>
+</svg>
+
+<button class="music-btn" id="musicBtn" aria-label="Toggle music">♪</button>
+<audio id="bgMusic" loop preload="none" src="audio/music.mp3"></audio>
+<div class="petals" id="petals" aria-hidden="true"></div>
 
 <div class="page">
   <div class="phulkari"></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-img"></div>
-    <div class="hero-inner">
-      <div class="doli">✧ ਸ਼ੁਭ ਵਿਆਹ ✧</div>
-      <div class="kicker">Gulati &amp; Arora Families Invite You</div>
-      <h1 class="hero-names">Akshit<span class="amp">weds</span>Rajveer</h1>
+  <!-- ============ HERO : ENVELOPE VIDEO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-fallback" id="heroFallback"></div>
+    <div class="video-gpu-accelerator">
+      <video id="bgVideo" playsinline webkit-playsinline muted preload="auto" poster="images/image1.JPG">
+        <!-- Drop your envelope video here as: video/envelope.mp4 -->
+        <source src="video/envelope.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero-shade"></div>
+
+    <!-- details revealed after the envelope opens -->
+    <div class="details-content-layer" id="detailsLayer">
+      <div class="kicker">✧ ਸ਼ੁਭ ਵਿਆਹ ✧</div>
+      <div class="hero-sub">Gulati &amp; Arora Families Invite You</div>
+      <h1 class="hero-names" id="heroNames">Akshit<span class="amp">weds</span>Rajveer</h1>
+      <div class="bottom-divider"></div>
       <div class="hero-sub">A PUNJABI CELEBRATION</div>
       <div class="hero-date">02 – 13 September · New Delhi</div>
+      <div class="doli">🌼</div>
     </div>
-    <div class="scroll-cue">Scroll<span class="chev">⌄</span></div>
+
+    <!-- tap to open -->
+    <div class="tap-overlay" id="tapOverlay">
+      <div class="wax-seal-pulse">ੴ</div>
+      <div class="tap-label">Tap to open the invitation</div>
+    </div>
+
+    <div class="scroll-cue" id="scrollCue">
+      <span>Scroll</span><i class="chev">⌄</i>
+    </div>
   </section>
 
-  <div class="marquee"><div class="mq-track" id="mq1"></div></div>
+  <div class="marquee"><div class="mq-track">
+    <span>ਸ਼ੁਭ ਵਿਆਹ</span><span>✦</span><span>Akshit weds Rajveer</span><span>✦</span><span>02 – 13 September</span><span>✦</span>
+    <span>ਸ਼ੁਭ ਵਿਆਹ</span><span>✦</span><span>Akshit weds Rajveer</span><span>✦</span><span>02 – 13 September</span><span>✦</span>
+  </div></div>
 
-  <!-- BLESSING -->
+  <!-- ============ BLESSING ============ -->
   <section class="section reveal">
     <div class="eyebrow">Ik Onkar</div>
-    <h2>ੴ ਸਤਿਨਾਮੁ</h2>
+    <h2 class="gurmukhi">ੴ ਸਤਿਨਾਮੁ</h2>
     <p class="lead">With the blessings of the Almighty and our elders, two families come together in joy.
       We warmly invite you to dance the bhangra, share the laughter and bless our beloved
-      <em>Akshit</em> and <em>Rajveer</em> as they begin a new life together.</p>
+      Akshit and Rajveer as they begin a new life together.</p>
     <div class="orn">✦ ❁ ✦</div>
   </section>
 
-  <div class="marquee rtl"><div class="mq-track" id="mq2"></div></div>
-
-  <!-- FAMILIES -->
-  <section class="section reveal">
-    <div class="eyebrow">Our Families</div>
-    <h2>With Blessings Of</h2>
+  <!-- ============ FAMILIES ============ -->
+  <section class="section" style="background:linear-gradient(180deg,#fffaf0,var(--cream))">
+    <div class="eyebrow reveal">Our Families</div>
+    <h2 class="reveal">With Blessings Of</h2>
     <div class="fam-grid">
       <div class="fam slide-l">
         <div class="role">The Groom</div>
@@ -188,8 +297,8 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
-  <section class="section reveal" style="background:linear-gradient(180deg,#fffaf0,var(--cream))">
+  <!-- ============ COUNTDOWN ============ -->
+  <section class="section reveal">
     <div class="eyebrow">Counting the days</div>
     <h2>Until the Wedding</h2>
     <div class="countdown">
@@ -200,75 +309,104 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
     </div>
   </section>
 
-  <div class="marquee"><div class="mq-track" id="mq3"></div></div>
-
-  <!-- EVENTS -->
-  <section class="section">
+  <!-- ============ EVENTS — SCRATCH CARDS ============ -->
+  <section class="section" style="background:linear-gradient(180deg,var(--cream),#f6ead2)">
     <div class="eyebrow reveal">The Celebrations</div>
     <h2 class="reveal">Four Days of Joy</h2>
-    <div class="evt-stack">
+    <p class="lead reveal">Scratch each card to unveil the celebration.</p>
 
-      <article class="evt slide-l">
-        <div class="evt-photo" style="background-image:url('images/image2.JPG')"><div class="evt-badge">02 September</div></div>
-        <div class="evt-body">
-          <div class="evt-name">Chowki</div>
-          <div class="evt-date">Wednesday, 2 September</div>
-          <div class="evt-venue"><b>Majestic Crown</b> — Ground Floor<br>24, Najafgarh Road (Shivaji Marg), Block C, Najafgarh Road Industrial Area, Moti Nagar, New Delhi 110015</div>
-          <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Majestic+Crown+24+Najafgarh+Road+Moti+Nagar+New+Delhi+110015">Open in Maps</a>
-        </div>
-      </article>
+    <div class="fest-stack">
 
-      <article class="evt slide-r">
-        <div class="evt-photo" style="background-image:url('images/image3.JPG')"><div class="evt-badge">06 September</div></div>
-        <div class="evt-body">
-          <div class="evt-name">Sagan &amp; Ring Ceremony</div>
-          <div class="evt-date">Sunday, 6 September</div>
-          <div class="evt-venue"><b>The Tivoli</b> — Oak Wood Hall<br>1, Chattarpur Mandir Road, Block A, Chattarpur Enclave, Mehrauli, New Delhi</div>
-          <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Tivoli+Chattarpur+Mandir+Road+Chattarpur+Enclave+New+Delhi">Open in Maps</a>
+      <div class="fcard reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">02 September</div>
+          <div class="f-name">Chowki</div>
+          <div class="f-tag">An evening of shabad &amp; song</div>
+          <div class="f-line"></div>
+          <div class="f-date">Wednesday, 2 September 2026</div>
+          <div class="f-venue">Majestic Crown — Ground Floor<br>24, Najafgarh Road (Shivaji Marg), Block C, Najafgarh Road Industrial Area, Moti Nagar, New Delhi 110015</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Majestic+Crown+Moti+Nagar+New+Delhi">Open in Maps</a>
+            <button class="ics-btn" data-title="Chowki — Akshit weds Rajveer" data-start="20260902T133000Z" data-end="20260902T173000Z" data-loc="Majestic Crown, Moti Nagar, New Delhi" data-desc="Chowki ceremony">+ Calendar</button>
+          </div>
         </div>
-      </article>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">🪘</span>Scratch to reveal</div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
 
-      <article class="evt slide-l">
-        <div class="evt-photo" style="background-image:url('images/image4.JPG')"><div class="evt-badge">11 September</div></div>
-        <div class="evt-body">
-          <div class="evt-name">Mehendi &amp; Cocktail</div>
-          <div class="evt-date">Friday, 11 September</div>
-          <div class="evt-venue"><b>The Mansion Hotel &amp; Banquet</b><br>H-4, FC-57, Road Number 43, Suvidha Kunj, Pocket B, Pitampura, New Delhi 110034</div>
-          <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Mansion+Hotel+and+Banquet+Pitampura+New+Delhi+110034">Open in Maps</a>
+      <div class="fcard reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">06 September</div>
+          <div class="f-name">Sagan &amp; Ring Ceremony</div>
+          <div class="f-tag">Blessings and promises</div>
+          <div class="f-line"></div>
+          <div class="f-date">Sunday, 6 September 2026</div>
+          <div class="f-venue">The Tivoli — Oak Wood Hall<br>1, Chattarpur Mandir Road, Block A, Chattarpur Enclave, Mehrauli, New Delhi</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Tivoli+Chattarpur+New+Delhi">Open in Maps</a>
+            <button class="ics-btn" data-title="Sagan &amp; Ring Ceremony — Akshit weds Rajveer" data-start="20260906T133000Z" data-end="20260906T173000Z" data-loc="The Tivoli, Chattarpur, New Delhi" data-desc="Sagan and Ring Ceremony">+ Calendar</button>
+          </div>
         </div>
-      </article>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">💍</span>Scratch to reveal</div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
 
-      <article class="evt slide-r">
-        <div class="evt-photo" style="background-image:url('images/image5.JPG')"><div class="evt-badge">13 September</div></div>
-        <div class="evt-body">
-          <div class="evt-name">The Wedding</div>
-          <div class="evt-date">Sunday, 13 September</div>
-          <div class="evt-venue"><b>Golden Apple</b><br>Twin District Center, near Crowne Plaza &amp; Swarn Jayanti Park (Japanese Park), Sector 10, Rohini, New Delhi 110085</div>
-          <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Golden+Apple+Twin+District+Center+Sector+10+Rohini+New+Delhi+110085">Open in Maps</a>
+      <div class="fcard reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">11 September</div>
+          <div class="f-name">Mehendi &amp; Cocktail</div>
+          <div class="f-tag">Henna, dhol and bhangra</div>
+          <div class="f-line"></div>
+          <div class="f-date">Friday, 11 September 2026</div>
+          <div class="f-venue">The Mansion Hotel &amp; Banquet<br>H-4, FC-57, Road Number 43, Suvidha Kunj, Pocket B, Pitampura, New Delhi 110034</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Mansion+Hotel+and+Banquet+Pitampura+New+Delhi">Open in Maps</a>
+            <button class="ics-btn" data-title="Mehendi &amp; Cocktail — Akshit weds Rajveer" data-start="20260911T120000Z" data-end="20260911T170000Z" data-loc="The Mansion Hotel &amp; Banquet, Pitampura, New Delhi" data-desc="Mehendi and Cocktail night">+ Calendar</button>
+          </div>
         </div>
-      </article>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">🌿</span>Scratch to reveal</div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
+
+      <div class="fcard heart reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">13 September</div>
+          <div class="f-name">The Wedding</div>
+          <div class="f-line"></div>
+          <div class="f-date">Sunday, 13 September 2026</div>
+          <div class="f-venue">Golden Apple, Twin District Center, Sector 10, Rohini, New Delhi 110085</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Golden+Apple+Sector+10+Rohini+New+Delhi">Maps</a>
+            <button class="ics-btn" data-title="The Wedding — Akshit weds Rajveer" data-start="20260913T123000Z" data-end="20260913T180000Z" data-loc="Golden Apple, Rohini, New Delhi" data-desc="The Wedding">+ Calendar</button>
+          </div>
+        </div>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">❤</span>Scratch the heart</div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
 
     </div>
   </section>
 
-  <div class="marquee rtl"><div class="mq-track" id="mq4"></div></div>
-
-  <!-- GALLERY -->
+  <!-- ============ GALLERY ============ -->
   <section class="section reveal">
     <div class="eyebrow">Moments</div>
     <h2>Akshit &amp; Rajveer</h2>
     <div class="gal">
-      <figure><img src="images/image6.JPG" alt="Akshit and Rajveer"></figure>
-      <figure><img src="images/image1.JPG" alt="Akshit and Rajveer"></figure>
-      <figure><img src="images/image2.JPG" alt="Akshit and Rajveer"></figure>
-      <figure><img src="images/image3.JPG" alt="Akshit and Rajveer"></figure>
-      <figure><img src="images/image4.JPG" alt="Akshit and Rajveer"></figure>
-      <figure><img src="images/image5.JPG" alt="Akshit and Rajveer"></figure>
-      <figure><img src="images/image6.JPG" alt="Akshit and Rajveer"></figure>
+      <figure><img src="images/image1.JPG" alt="Akshit and Rajveer" loading="lazy"></figure>
+      <figure><img src="images/image2.JPG" alt="Couple moment" loading="lazy"></figure>
+      <figure><img src="images/image3.JPG" alt="Couple moment" loading="lazy"></figure>
+      <figure><img src="images/image4.JPG" alt="Couple moment" loading="lazy"></figure>
+      <figure><img src="images/image5.JPG" alt="Couple moment" loading="lazy"></figure>
+      <figure><img src="images/image6.JPG" alt="Couple moment" loading="lazy"></figure>
+      <figure><img src="images/image7.JPG" alt="Couple moment" loading="lazy"></figure>
     </div>
   </section>
 
-  <!-- RSVP -->
+  <!-- ============ RSVP ============ -->
   <section class="section rsvp reveal">
     <div class="eyebrow">RSVP</div>
     <h2>Gulati Family</h2>
@@ -278,7 +416,7 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
       <a href="tel:+919582758769"><span>Ankit Gulati</span><span>95827 58769</span></a>
     </div>
     <div class="orn">✦ ❁ ✦</div>
-    <p class="lead" style="margin-top:18px">With best compliments from<br><strong>All Relatives &amp; Friends</strong></p>
+    <p class="lead">With best compliments from<br>All Relatives &amp; Friends</p>
   </section>
 
   <footer>
@@ -292,64 +430,222 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
 
 <script>
 (function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-  /* flowing marquees */
-  var texts = {
-    mq1:'✦ ਸ਼ੁਭ ਵਿਆਹ ✦ Akshit weds Rajveer ✦ 13 September ✦ New Delhi ✦',
-    mq2:'✦ Chowki ✦ Sagan ✦ Mehendi ✦ Cocktail ✦ Anand Karaj ✦ Baraat ✦',
-    mq3:'✦ Dhol ✦ Bhangra ✦ Phulkari ✦ Marigold ✦ Love ✦ Blessings ✦',
-    mq4:'✦ With love, the Gulati &amp; Arora families ✦ Bless the couple ✦'
-  };
-  Object.keys(texts).forEach(function(id){
-    var el = document.getElementById(id); if(!el) return;
-    var html = '';
-    for(var i=0;i<6;i++) html += '<span>'+texts[id]+'</span>';
-    el.innerHTML = html + html;
+  /* ---------- HERO ENVELOPE VIDEO ---------- */
+  var hero = document.getElementById('hero'),
+      video = document.getElementById('bgVideo'),
+      overlay = document.getElementById('tapOverlay'),
+      details = document.getElementById('detailsLayer'),
+      cue = document.getElementById('scrollCue'),
+      fallback = document.getElementById('heroFallback'),
+      opened = false, hasVideo = true;
+
+  /* If video/envelope.mp4 is missing, keep the photo hero and open instantly. */
+  video.addEventListener('error', function(){ hasVideo = false; video.style.display='none'; }, true);
+  video.addEventListener('loadeddata', function(){ fallback.style.display='none'; });
+
+  /* Reveal timings — tuned for the 9s envelope video */
+  var DETAILS_AT = 3200;   // ms: card is out of the envelope
+  var CUE_AT     = 5200;   // ms: invite scroll
+
+  /* The bundled envelope.mp4 already prints the names on the card, so hide the
+     duplicate overlay names. Remove these 2 lines if your own video has a blank card. */
+  var NAMES_IN_VIDEO = true;
+  function revealDetails(){
+    if(NAMES_IN_VIDEO && hasVideo){ var hn=document.getElementById('heroNames'); if(hn) hn.style.display='none'; }
+    hero.classList.add('opened');
+    details.classList.add('active');
+    startPetals();
+    setTimeout(function(){ cue.classList.add('show'); }, CUE_AT - DETAILS_AT);
+  }
+
+  function openInvite(){
+    if(opened) return; opened = true;
+    overlay.classList.add('hide');
+    document.documentElement.classList.remove('lock');
+    document.body.classList.remove('lock');
+    tryMusic();
+    if(hasVideo){
+      var p = video.play();
+      if(p && p.catch) p.catch(function(){ hasVideo=false; });
+      /* prefer the real video timeline when metadata is available */
+      var fired=false;
+      video.addEventListener('timeupdate', function onT(){
+        if(!fired && video.currentTime >= DETAILS_AT/1000){ fired=true; video.removeEventListener('timeupdate',onT); revealDetails(); }
+      });
+      setTimeout(function(){ if(!fired){ fired=true; revealDetails(); } }, DETAILS_AT + 600);
+      video.addEventListener('ended', function(){ video.pause(); });
+    } else {
+      setTimeout(revealDetails, 400);
+    }
+  }
+  document.documentElement.classList.add('lock');
+  document.body.classList.add('lock');
+  overlay.addEventListener('click', openInvite);
+  cue.addEventListener('click', function(){
+    var m = document.querySelector('.marquee');
+    if(m) m.scrollIntoView({behavior:'smooth'});
   });
 
-  /* countdown to 13 September 2026 */
-  var target = new Date('2026-09-13T10:00:00+05:30').getTime();
-  function pad(n){return n<10?'0'+n:''+n}
+  /* ---------- background music (optional: audio/music.mp3) ---------- */
+  var music = document.getElementById('bgMusic'), mBtn = document.getElementById('musicBtn'), musicOK = true;
+  music.addEventListener('error', function(){ musicOK=false; mBtn.style.display='none'; });
+  function tryMusic(){ if(!musicOK) return; music.volume=.55; var p=music.play(); if(p&&p.catch)p.catch(function(){}); mBtn.classList.add('playing'); }
+  mBtn.addEventListener('click', function(){
+    if(!musicOK) return;
+    if(music.paused){ music.play(); mBtn.classList.add('playing'); mBtn.textContent='♪'; }
+    else { music.pause(); mBtn.classList.remove('playing'); mBtn.textContent='♪̸'; }
+  });
+
+  /* ---------- countdown to the wedding ---------- */
+  var target = new Date('2026-09-13T18:00:00+05:30').getTime();
   function tick(){
     var d = target - Date.now();
     if(d < 0) d = 0;
-    var s = Math.floor(d/1000);
-    document.getElementById('cd-d').textContent = pad(Math.floor(s/86400));
-    document.getElementById('cd-h').textContent = pad(Math.floor(s%86400/3600));
-    document.getElementById('cd-m').textContent = pad(Math.floor(s%3600/60));
-    document.getElementById('cd-s').textContent = pad(s%60);
+    var days = Math.floor(d/86400000),
+        hrs  = Math.floor(d%86400000/3600000),
+        min  = Math.floor(d%3600000/60000),
+        sec  = Math.floor(d%60000/1000);
+    document.getElementById('cd-d').textContent = days;
+    document.getElementById('cd-h').textContent = ('0'+hrs).slice(-2);
+    document.getElementById('cd-m').textContent = ('0'+min).slice(-2);
+    document.getElementById('cd-s').textContent = ('0'+sec).slice(-2);
   }
-  tick(); setInterval(tick,1000);
+  tick(); setInterval(tick, 1000);
 
-  /* scroll reveal */
-  var items = document.querySelectorAll('.reveal,.slide-l,.slide-r');
+  /* ---------- SCRATCH CARDS ---------- */
+  function initScratch(card){
+    var canvas = card.querySelector('.scratch');
+    if(!canvas) return;
+    var ctx = canvas.getContext('2d'), dpr = Math.min(window.devicePixelRatio||1, 2);
+    var painting = false, done = false, cleared = 0;
+
+    function paint(){
+      var r = card.getBoundingClientRect();
+      if(!r.width || !r.height) return;
+      canvas.width = Math.round(r.width*dpr); canvas.height = Math.round(r.height*dpr);
+      canvas.style.width = r.width+'px'; canvas.style.height = r.height+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      var g = ctx.createLinearGradient(0,0,r.width,r.height);
+      g.addColorStop(0,'#5c0f1e'); g.addColorStop(.5,'#3d0713'); g.addColorStop(1,'#7a1728');
+      ctx.globalCompositeOperation='source-over';
+      ctx.fillStyle=g; ctx.fillRect(0,0,r.width,r.height);
+      /* phulkari bands */
+      var cols=['#c2185b','#e08a1e','#e0b869','#4f6b3a'];
+      for(var i=0;i*18<r.width;i++){ ctx.fillStyle=cols[i%4]; ctx.fillRect(i*18,0,18,9); ctx.fillRect(i*18,r.height-9,18,9); }
+      /* gold motif dots */
+      ctx.strokeStyle='rgba(224,184,105,.35)'; ctx.lineWidth=1.5;
+      for(var y=26;y<r.height-18;y+=34){
+        for(var x2=18;x2<r.width;x2+=34){
+          ctx.beginPath(); ctx.arc(x2,y,6,0,Math.PI*2); ctx.stroke();
+        }
+      }
+      ctx.strokeStyle='rgba(224,184,105,.7)'; ctx.lineWidth=2;
+      ctx.strokeRect(12,14,r.width-24,r.height-28);
+    }
+
+    function pos(e){
+      var r = canvas.getBoundingClientRect();
+      var t = (e.touches && e.touches[0]) ? e.touches[0] : e;
+      return {x: t.clientX - r.left, y: t.clientY - r.top};
+    }
+    function scratch(e){
+      if(done) return;
+      var p = pos(e);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath(); ctx.arc(p.x, p.y, 26, 0, Math.PI*2); ctx.fill();
+      cleared++;
+      if(cleared % 8 === 0 && checkDone()) reveal();
+    }
+    function checkDone(){
+      var w = canvas.width, h = canvas.height;
+      if(!w||!h) return false;
+      var data = ctx.getImageData(0,0,w,h).data, tot=0, clear=0;
+      for(var i=3;i<data.length;i+=4*40){ tot++; if(data[i]<40) clear++; }
+      return tot && clear/tot > 0.45;
+    }
+    function reveal(){ done = true; card.classList.add('revealed'); }
+
+    canvas.addEventListener('mousedown', function(e){ painting=true; scratch(e); });
+    canvas.addEventListener('mousemove', function(e){ if(painting) scratch(e); });
+    window.addEventListener('mouseup', function(){ if(painting){painting=false; if(!done&&checkDone())reveal();} });
+    canvas.addEventListener('touchstart', function(e){ painting=true; scratch(e); }, {passive:true});
+    canvas.addEventListener('touchmove', function(e){ if(painting){ e.preventDefault(); scratch(e);} }, {passive:false});
+    canvas.addEventListener('touchend', function(){ painting=false; if(!done&&checkDone())reveal(); });
+    /* double tap / double click reveals everything for accessibility */
+    canvas.addEventListener('dblclick', reveal);
+
+    paint();
+    window.addEventListener('resize', function(){ if(!done) paint(); });
+    if(reduce) reveal();
+  }
+  var cards = document.querySelectorAll('[data-scratch]');
+  for(var ci=0; ci<cards.length; ci++) initScratch(cards[ci]);
+
+  /* ---------- add to calendar (.ics) ---------- */
+  function icsEsc(s){ return String(s||'').replace(/[\\;,]/g, function(m){return '\\'+m;}).replace(/\n/g,'\\n'); }
+  function stampNow(){ return new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z'; }
+  function makeICS(b){
+    return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Akshit-Rajveer//Invite//EN','BEGIN:VEVENT',
+      'UID:'+Date.now()+'@invite','DTSTAMP:'+stampNow(),
+      'DTSTART:'+b.getAttribute('data-start'),'DTEND:'+b.getAttribute('data-end'),
+      'SUMMARY:'+icsEsc(b.getAttribute('data-title')),
+      'LOCATION:'+icsEsc(b.getAttribute('data-loc')),
+      'DESCRIPTION:'+icsEsc(b.getAttribute('data-desc')),
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target;
+    while(b && b !== document && !(b.className && String(b.className).indexOf('ics-btn')>-1)) b = b.parentNode;
+    if(!b || b === document) return;
+    var ics = makeICS(b);
+    var name = (b.getAttribute('data-title')||'event').replace(/[^a-z0-9]+/gi,'-')+'.ics';
+    try{
+      var blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a'); a.href=url; a.download=name;
+      document.body.appendChild(a); a.click();
+      setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 400);
+    }catch(err){
+      window.location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    }
+  });
+
+  /* ---------- scroll reveal ---------- */
+  var revs = document.querySelectorAll('.reveal,.slide-l,.slide-r');
   if(window.IntersectionObserver){
-    var io = new IntersectionObserver(function(en){
-      en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    },{threshold:.14});
-    items.forEach(function(el){ io.observe(el); });
+    var ro = new IntersectionObserver(function(en){
+      for(var i=0;i<en.length;i++){ if(en[i].isIntersecting){ en[i].target.classList.add('in'); ro.unobserve(en[i].target); } }
+    }, {threshold:.14});
+    for(var r=0;r<revs.length;r++) ro.observe(revs[r]);
   } else {
-    items.forEach(function(el){ el.classList.add('in'); });
+    for(var a2=0;a2<revs.length;a2++) revs[a2].classList.add('in');
   }
 
-  /* falling marigold petals */
+  /* ---------- falling marigold petals ---------- */
   var layer = document.getElementById('petals');
-  var glyphs = ['🌼','🌸','✦','🧡'];
-  var live = 0, MAX = 16;
+  var glyphs = ['🌼','🌺','✦','🌸'];
+  var on=false, liveCount=0, MAXP=18;
   function spawn(){
-    if(reduce || live >= MAX) return;
+    if(!on || liveCount>=MAXP) return;
     var p = document.createElement('span');
     p.className='petal';
     p.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
     p.style.left = (Math.random()*100)+'vw';
-    p.style.fontSize = (12+Math.random()*14)+'px';
-    p.style.setProperty('--drift',(Math.random()*140-70)+'px');
-    p.style.animation = 'fall '+(7+Math.random()*5)+'s linear forwards';
-    layer.appendChild(p); live++;
-    p.addEventListener('animationend',function(){ this.remove(); live--; });
+    p.style.fontSize = (12+Math.random()*16)+'px';
+    p.style.opacity = '0.85';
+    p.style.setProperty('--drift', (Math.random()*140-70)+'px');
+    p.style.animation = 'fall '+(6+Math.random()*5)+'s linear forwards';
+    layer.appendChild(p); liveCount++;
+    p.addEventListener('animationend', function(){ this.remove(); liveCount--; });
   }
-  if(!reduce){ for(var i=0;i<10;i++) setTimeout(spawn,i*160); setInterval(spawn,800); }
+  function startPetals(){
+    if(reduce || on) return; on = true;
+    for(var i=0;i<12;i++) setTimeout(spawn, i*140);
+    setInterval(spawn, 720);
+  }
+  window.startPetals = startPetals;
 })();
 </script>
 </body>
