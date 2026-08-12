@@ -7,7 +7,7 @@
 <meta name="description" content="Akshit weds Rajveer • Chowki, Sagan, Mehendi &amp; Cocktail, Wedding • September 2026 • New Delhi">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Akshit &amp; Rajveer — Wedding Invitation">
-<meta property="og:description" content="With love, the Gulati &amp; Arora families invite you • 2–13 September • New Delhi">
+<meta property="og:description" content="With love, the Gulati family invites you • 2–13 September • New Delhi">
 <meta property="og:image" content="images/image1.jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,8 +70,8 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
   transition:opacity 2s cubic-bezier(.15,1,.2,1),transform 2.2s cubic-bezier(.15,1,.2,1);pointer-events:none}
 .details-content-layer.active{opacity:1;transform:translateZ(0) translateY(0) scale(1);pointer-events:auto}
 .kicker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-lt);text-shadow:0 2px 8px rgba(0,0,0,.85)}
-.hero-names{font-family:'Playfair Display',serif;font-size:46px;line-height:1.06;color:var(--gold-soft);margin:6px 0 2px;text-shadow:0 6px 26px rgba(0,0,0,.75)}
-.hero-names .amp{display:block;font-family:'Marcellus',serif;font-size:22px;color:var(--marigold);margin:4px 0}
+.hero-names{font-family:'Playfair Display',serif;font-weight:700;font-size:46px;line-height:1.06;color:var(--gold-soft);margin:6px 0 2px;text-shadow:0 2px 4px rgba(0,0,0,.9),0 8px 28px rgba(0,0,0,.85)}
+.hero-names .amp{display:block;font-family:'Marcellus',serif;font-weight:600;font-size:22px;color:var(--marigold);margin:4px 0;text-shadow:0 2px 4px rgba(0,0,0,.9),0 6px 20px rgba(0,0,0,.8)}
 .hero-sub{font-family:'Marcellus',serif;font-size:12.5px;letter-spacing:3px;color:#f3ddb9;text-shadow:0 2px 8px rgba(0,0,0,.85)}
 .hero-date{margin-top:6px;border-top:1px solid rgba(224,184,105,.55);border-bottom:1px solid rgba(224,184,105,.55);
   padding:8px 18px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:3px;color:var(--gold-soft)}
@@ -236,8 +236,8 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
 
     <!-- details revealed after the envelope opens -->
     <div class="details-content-layer" id="detailsLayer">
-      <div class="kicker">✧ ਸ਼ੁਭ ਵਿਆਹ ✧</div>
-      <div class="hero-sub">Gulati &amp; Arora Families Invite You</div>
+      <div class="kicker">✧ शुभ विवाह ✧</div>
+      <div class="hero-sub">Gulati Family Invites You</div>
       <h1 class="hero-names" id="heroNames">Akshit<span class="amp">weds</span>Rajveer</h1>
       <div class="bottom-divider"></div>
       <div class="hero-sub">A PUNJABI CELEBRATION</div>
@@ -247,7 +247,7 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
 
     <!-- tap to open -->
     <div class="tap-overlay" id="tapOverlay">
-      <div class="wax-seal-pulse">ੴ</div>
+      <div class="wax-seal-pulse">ॐ</div>
       <div class="tap-label">Tap to open the invitation</div>
     </div>
 
@@ -257,14 +257,14 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
   </section>
 
   <div class="marquee"><div class="mq-track">
-    <span>ਸ਼ੁਭ ਵਿਆਹ</span><span>✦</span><span>Akshit weds Rajveer</span><span>✦</span><span>02 – 13 September</span><span>✦</span>
-    <span>ਸ਼ੁਭ ਵਿਆਹ</span><span>✦</span><span>Akshit weds Rajveer</span><span>✦</span><span>02 – 13 September</span><span>✦</span>
+    <span>शुभ विवाह</span><span>✦</span><span>Akshit weds Rajveer</span><span>✦</span><span>02 – 13 September</span><span>✦</span>
+    <span>शुभ विवाह</span><span>✦</span><span>Akshit weds Rajveer</span><span>✦</span><span>02 – 13 September</span><span>✦</span>
   </div></div>
 
   <!-- ============ BLESSING ============ -->
   <section class="section reveal">
-    <div class="eyebrow">Ik Onkar</div>
-    <h2 class="gurmukhi">ੴ ਸਤਿਨਾਮੁ</h2>
+    <div class="eyebrow">Om Ganeshaya Namah</div>
+    <h2 class="gurmukhi">ॐ श्री गणेशाय नमः</h2>
     <p class="lead">With the blessings of the Almighty and our elders, two families come together in joy.
       We warmly invite you to dance the bhangra, share the laughter and bless our beloved
       Akshit and Rajveer as they begin a new life together.</p>
@@ -451,7 +451,7 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
 
   /* The bundled envelope.mp4 already prints the names on the card, so hide the
      duplicate overlay names. Remove these 2 lines if your own video has a blank card. */
-  var NAMES_IN_VIDEO = true;
+  var NAMES_IN_VIDEO = false;
   function revealDetails(){
     if(NAMES_IN_VIDEO && hasVideo){ var hn=document.getElementById('heroNames'); if(hn) hn.style.display='none'; }
     hero.classList.add('opened');
