@@ -12,7 +12,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Marcellus&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,700&family=Marcellus&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --maroon:#3d0713;
@@ -69,12 +69,15 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
   transform:translateZ(-180px) translateY(-10px) scale(.86);
   transition:opacity 2s cubic-bezier(.15,1,.2,1),transform 2.2s cubic-bezier(.15,1,.2,1);pointer-events:none}
 .details-content-layer.active{opacity:1;transform:translateZ(0) translateY(0) scale(1);pointer-events:auto}
-.kicker{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-lt);text-shadow:0 2px 8px rgba(0,0,0,.85)}
-.hero-names{font-family:'Playfair Display',serif;font-weight:700;font-size:46px;line-height:1.06;color:var(--gold-soft);margin:6px 0 2px;text-shadow:0 2px 4px rgba(0,0,0,.9),0 8px 28px rgba(0,0,0,.85)}
-.hero-names .amp{display:block;font-family:'Marcellus',serif;font-weight:600;font-size:22px;color:var(--marigold);margin:4px 0;text-shadow:0 2px 4px rgba(0,0,0,.9),0 6px 20px rgba(0,0,0,.8)}
-.hero-sub{font-family:'Marcellus',serif;font-size:12.5px;letter-spacing:3px;color:#f3ddb9;text-shadow:0 2px 8px rgba(0,0,0,.85)}
+.kicker{font-family:'Cinzel',serif;font-style:italic;font-size:10px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-lt);text-shadow:0 2px 8px rgba(0,0,0,.85)}
+.hero-sub{font-family:'Marcellus',serif;font-style:italic;font-size:12.5px;letter-spacing:3px;color:#f3ddb9;text-shadow:0 2px 8px rgba(0,0,0,.85)}
+.hero-sub.invite-line{font-size:14.5px;letter-spacing:2.6px;color:var(--gold-soft);font-weight:600;
+  background:rgba(23,2,8,.55);border:1px solid rgba(224,184,105,.65);padding:9px 20px;border-radius:40px;
+  box-shadow:0 8px 20px rgba(0,0,0,.4);text-shadow:0 2px 6px rgba(0,0,0,.9)}
+.hero-names{font-family:'Playfair Display',serif;font-weight:700;font-style:italic;font-size:48px;line-height:1.08;color:var(--gold-soft);margin:10px 0 2px;letter-spacing:.5px;text-shadow:0 2px 4px rgba(0,0,0,.9),0 8px 28px rgba(0,0,0,.85)}
+.hero-names .amp{display:block;font-family:'Marcellus',serif;font-style:italic;font-weight:600;font-size:20px;color:var(--marigold);margin:6px 0;letter-spacing:3px;text-transform:uppercase;text-shadow:0 2px 4px rgba(0,0,0,.9),0 6px 20px rgba(0,0,0,.8)}
 .hero-date{margin-top:6px;border-top:1px solid rgba(224,184,105,.55);border-bottom:1px solid rgba(224,184,105,.55);
-  padding:8px 18px;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:3px;color:var(--gold-soft)}
+  padding:8px 18px;font-family:'Cinzel',serif;font-style:italic;font-size:10.5px;letter-spacing:3px;color:var(--gold-soft)}
 .bottom-divider{width:44px;height:1px;background:var(--gold-lt);margin:4px auto;opacity:.7}
 .doli{font-size:22px}
 
@@ -94,24 +97,24 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 .marquee{overflow:hidden;background:linear-gradient(90deg,var(--maroon),var(--maroon-2),var(--maroon));border-top:1px solid rgba(224,184,105,.35);border-bottom:1px solid rgba(224,184,105,.35);padding:9px 0}
 .mq-track{display:flex;width:max-content;animation:mqL 26s linear infinite}
 .marquee.rtl .mq-track{animation:mqR 26s linear infinite}
-.mq-track span{font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-lt);padding:0 22px;white-space:nowrap}
+.mq-track span{font-family:'Cinzel',serif;font-style:italic;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold-lt);padding:0 22px;white-space:nowrap}
 @keyframes mqL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes mqR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
 /* ============ sections ============ */
 .section{padding:54px 26px;text-align:center;position:relative}
-.eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.section h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:600;color:var(--maroon-2)}
+.eyebrow{font-family:'Cinzel',serif;font-style:italic;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section h2{font-family:'Playfair Display',serif;font-style:italic;font-size:28px;font-weight:600;color:var(--maroon-2)}
 .orn{color:var(--gold);letter-spacing:.45em;font-size:14px;margin-top:14px;opacity:.85}
-.lead{max-width:370px;margin:16px auto 0;font-size:13.5px;line-height:1.8;color:#5c4650}
+.lead{max-width:370px;margin:16px auto 0;font-size:13.5px;line-height:1.8;color:#5c4650;font-style:italic}
 .gurmukhi{font-size:22px;color:var(--marigold);font-family:'Marcellus',serif}
 
 /* families */
 .fam-grid{display:grid;gap:16px;margin-top:26px}
 .fam{border:1px solid rgba(184,135,62,.35);border-radius:16px;background:linear-gradient(180deg,#fffaf0,var(--cream-2));padding:22px 18px;box-shadow:0 12px 26px rgba(61,7,19,.10)}
-.fam h3{font-family:'Playfair Display',serif;font-size:23px;color:var(--maroon-2)}
-.fam .role{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.fam .lbl{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--henna);margin-top:14px}
+.fam h3{font-family:'Playfair Display',serif;font-style:italic;font-size:23px;color:var(--maroon-2)}
+.fam .role{font-family:'Cinzel',serif;font-style:italic;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.fam .lbl{font-family:'Cinzel',serif;font-style:italic;font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--henna);margin-top:14px}
 .fam p{font-size:12.5px;line-height:1.6;color:#5c4650;margin-top:3px}
 .fam .line{width:34px;height:1px;background:var(--gold-lt);margin:12px auto}
 
@@ -126,8 +129,8 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 .fcard{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(184,135,62,.35);
   box-shadow:0 14px 34px rgba(61,7,19,.16);background:var(--cream)}
 .fcard-base{position:relative;z-index:1;padding:26px 22px;text-align:center;background:radial-gradient(ellipse at top,#fff9ef,var(--cream))}
-.f-day{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
-.f-name{font-family:'Playfair Display',serif;font-size:25px;font-weight:600;color:var(--maroon-2);margin-top:6px;line-height:1.1}
+.f-day{font-family:'Cinzel',serif;font-style:italic;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.f-name{font-family:'Playfair Display',serif;font-style:italic;font-size:25px;font-weight:600;color:var(--maroon-2);margin-top:6px;line-height:1.1}
 .f-tag{font-family:'Playfair Display',serif;font-style:italic;color:var(--henna);font-size:12.5px;margin-top:3px}
 .f-line{width:36px;height:1px;background:var(--gold-lt);margin:12px auto}
 .f-date{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.4px}
@@ -180,8 +183,8 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 
 footer{text-align:center;padding:46px 24px 56px;background:var(--maroon);color:#f3ddb9}
 footer .mark{font-size:24px;color:var(--gold-lt)}
-footer .fnames{font-family:'Playfair Display',serif;font-size:24px;color:#fff;margin-top:10px}
-footer .fmeta{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lt);margin-top:10px}
+footer .fnames{font-family:'Playfair Display',serif;font-style:italic;font-size:24px;color:#fff;margin-top:10px}
+footer .fmeta{font-family:'Cinzel',serif;font-style:italic;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-lt);margin-top:10px}
 footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:12.5px;color:#e8d3ba;margin-top:16px;line-height:1.7}
 
 /* music toggle */
@@ -237,10 +240,10 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
     <!-- details revealed after the envelope opens -->
     <div class="details-content-layer" id="detailsLayer">
       <div class="kicker">✧ शुभ विवाह ✧</div>
-      <div class="hero-sub">Gulati Family Invites You</div>
+      <div class="hero-sub invite-line">Gulati Family Invites You</div>
       <h1 class="hero-names" id="heroNames">Akshit<span class="amp">weds</span>Rajveer</h1>
       <div class="bottom-divider"></div>
-      <div class="hero-sub">A PUNJABI CELEBRATION</div>
+      <div class="hero-sub">A WEDDING CELEBRATION</div>
       <div class="hero-date">02 – 13 September · New Delhi</div>
       <div class="doli">🌼</div>
     </div>
