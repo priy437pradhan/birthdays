@@ -290,14 +290,19 @@ var CONFIG = {
   one: {                                   /* left piece  */
     eyebrow : 'Missing Piece \u2014 One',
     name    : 'Rhythm',
-    photo   : 'images/rhythm.jpg',
+    photo   : 'images/rhythm.png',
     location: 'Somewhere in Bengaluru',
     trait   : 'goofy & bubbly',
-    /* PHOTO FRAMING — the photo always covers the piece; these decide the crop.
+    /* PHOTO FRAMING
+       The photo covers the piece's real outline (body + whatever tabs stick out),
+       nothing more — so at zoom 1 you already see the widest safe crop.
        focusX 0=left  50=centre 100=right   |   focusY 0=top 50=centre 100=bottom
-       zoom   1 = no extra zoom             |   shiftX/shiftY = nudge in px      */
+       zoom   1 = widest safe fit, 1.2 = tighter/closer.
+              Below 1 pulls back further still, but the very tips of the tabs
+              may show the cream paper backing — 0.9 is usually still clean.
+       shiftX/shiftY = nudge in px                                            */
     focusX  : 50,
-    focusY  : 25,
+    focusY  : 22,
     zoom    : 1,
     shiftX  : 0,
     shiftY  : 0
@@ -309,8 +314,8 @@ var CONFIG = {
     photo   : 'images/tushar.jpg',
     location: 'Somewhere in Gurgaon',
     trait   : 'shy & sweet',
-    focusX  : 240,
-    focusY  : 30,
+    focusX  : 50,
+    focusY  : 25,
     zoom    : 1,
     shiftX  : 0,
     shiftY  : 0
@@ -347,7 +352,8 @@ var CONFIG = {
   /* ---- puzzle geometry ------------------------------------------------- */
   var BODY_W = 200, BODY_H = 250;                 /* card body, px            */
   var S      = 48;                                /* knob scale, px           */
-  var PAD    = Math.round(1.22 * S) + 9;          /* bleed so knobs never clip*/
+  var KNOB_OUT = 1.22 * S;                        /* how far a tab reaches out*/
+  var PAD    = Math.round(KNOB_OUT) + 9;          /* bleed so knobs never clip*/
   var VB_W   = BODY_W + PAD * 2, VB_H = BODY_H + PAD * 2;
 
   /* one real jigsaw knob, sized in px and centred on the edge:
@@ -404,7 +410,8 @@ var CONFIG = {
   }
 
   function buildPiece(person, shapeKey){
-    var d   = piecePath(SHAPE[shapeKey]);
+    var e   = SHAPE[shapeKey];
+    var d   = piecePath(e);
     var cid = 'pz' + (++uid);
 
     var svg = node('svg', {
@@ -420,18 +427,30 @@ var CONFIG = {
     /* paper backing so a missing photo still reads as a piece */
     svg.appendChild(node('path', { d: d, fill: 'var(--paper)' }));
 
-    /* the photo already covers (slice = object-fit:cover); focusX/focusY
-       decide which part survives the crop, like object-position */
+    /* ---- how much area actually has to hold photo -----------------------
+       Only a TAB (dir === 1) pokes out past the body; a socket eats inwards
+       and a flat edge needs nothing. So the photo covers the body plus the
+       tab overhangs — NOT the whole padded viewBox. That padding is only
+       there to stop the knobs being clipped, and covering it was silently
+       zooming every photo in by ~35%.                                      */
+    var extL = e.l === 1 ? KNOB_OUT : 0,
+        extR = e.r === 1 ? KNOB_OUT : 0,
+        extT = e.t === 1 ? KNOB_OUT : 0,
+        extB = e.b === 1 ? KNOB_OUT : 0;
+    var COV_W = BODY_W + extL + extR;
+    var COV_H = BODY_H + extT + extB;
+
+    /* focusX/focusY decide which part survives the crop, like object-position */
     function align(v, lo, mid, hi){ return v <= 33 ? lo : (v <= 66 ? mid : hi); }
     var fx = person.focusX === undefined ? 50 : person.focusX;
     var fy = person.focusY === undefined ? 50 : person.focusY;
     var par = 'x' + align(fx, 'Min', 'Mid', 'Max') + 'Y' + align(fy, 'Min', 'Mid', 'Max') + ' slice';
 
     var zoom = person.zoom || 1;
-    var iw = VB_W * zoom, ih = VB_H * zoom;
+    var iw = COV_W * zoom, ih = COV_H * zoom;
     var img = node('image', {
-      x: (-PAD - (iw - VB_W) * (fx / 100) + (person.shiftX || 0)),
-      y: (-PAD - (ih - VB_H) * (fy / 100) + (person.shiftY || 0)),
+      x: (-extL - (iw - COV_W) * (fx / 100) + (person.shiftX || 0)),
+      y: (-extT - (ih - COV_H) * (fy / 100) + (person.shiftY || 0)),
       width: iw, height: ih,
       preserveAspectRatio: par,
       'clip-path': 'url(#' + cid + ')'
@@ -446,13 +465,13 @@ var CONFIG = {
     probe.onload = function(){
       var nw = probe.naturalWidth, nh = probe.naturalHeight;
       if(!nw || !nh) return;
-      var sc = Math.max(VB_W / nw, VB_H / nh) * zoom;
+      var sc = Math.max(COV_W / nw, COV_H / nh) * zoom;
       var w = nw * sc, h = nh * sc;
       img.setAttribute('preserveAspectRatio', 'none');   /* aspect kept by maths */
       img.setAttribute('width',  w);
       img.setAttribute('height', h);
-      img.setAttribute('x', -PAD - (w - VB_W) * (fx / 100) + (person.shiftX || 0));
-      img.setAttribute('y', -PAD - (h - VB_H) * (fy / 100) + (person.shiftY || 0));
+      img.setAttribute('x', -extL - (w - COV_W) * (fx / 100) + (person.shiftX || 0));
+      img.setAttribute('y', -extT - (h - COV_H) * (fy / 100) + (person.shiftY || 0));
     };
     probe.src = person.photo;
 
