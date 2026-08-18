@@ -128,7 +128,7 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 .fest-stack{margin-top:30px;display:flex;flex-direction:column;gap:26px}
 .fcard{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(184,135,62,.35);
   box-shadow:0 14px 34px rgba(61,7,19,.16);background:var(--cream)}
-.fcard-base{position:relative;z-index:1;padding:26px 22px;text-align:center;background:radial-gradient(ellipse at top,#fff9ef,var(--cream))}
+.fcard-base{position:relative;z-index:1;padding:26px 22px 30px;text-align:center;background:radial-gradient(ellipse at top,#fff9ef,var(--cream))}
 .f-day{font-family:'Cinzel',serif;font-style:italic;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
 .f-name{font-family:'Playfair Display',serif;font-style:italic;font-size:25px;font-weight:600;color:var(--maroon-2);margin-top:6px;line-height:1.1}
 .f-tag{font-family:'Playfair Display',serif;font-style:italic;color:var(--henna);font-size:12.5px;margin-top:3px}
@@ -150,10 +150,11 @@ body{background:var(--maroon);color:var(--ink);font-family:'Montserrat',sans-ser
 .f-emblem{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;pointer-events:none;text-align:center;
   font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:rgba(255,248,236,.9)}
 .f-emblem .big{display:block;font-size:26px;margin-bottom:8px}
+.f-emblem i{display:block;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;font-style:italic;opacity:.78;margin-top:8px}
 .scratch,.f-hint,.f-emblem{transition:opacity .55s ease}
 .fcard.revealed .scratch,.fcard.revealed .f-hint,.fcard.revealed .f-emblem{opacity:0;pointer-events:none}
 
-/* heart scratch card for the wedding day */
+/* heart scratch card — the wedding day only */
 .fcard.heart{aspect-ratio:1/1;border:none;box-shadow:none;background:transparent;overflow:hidden;
   -webkit-clip-path:url(#heartClip);clip-path:url(#heartClip);filter:drop-shadow(0 16px 26px rgba(92,15,30,.32))}
 .fcard.heart .fcard-base{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -315,11 +316,69 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
   <!-- ============ EVENTS — SCRATCH CARDS ============ -->
   <section class="section" style="background:linear-gradient(180deg,var(--cream),#f6ead2)">
     <div class="eyebrow reveal">The Celebration</div>
-    <h2 class="reveal">The Big Day</h2>
-    <p class="lead reveal">Scratch the card to unveil the celebration.</p>
+    <h2 class="reveal">Our Functions</h2>
+    <p class="lead reveal">Scratch each card to unveil the celebration.</p>
 
     <div class="fest-stack">
 
+      <!-- 1 · CHOWKI -->
+      <div class="fcard reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">2 September</div>
+          <div class="f-name">Chowki</div>
+          <div class="f-tag">An evening of shabad &amp; blessings</div>
+          <div class="f-line"></div>
+          <div class="f-date">Wednesday, 2 September 2026</div>
+          <div class="f-venue">Majestic Crown, Ground Floor<br>24, Najafgarh Road (Shivaji Marg), Block C,<br>Moti Nagar, New Delhi 110015</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Majestic+Crown+24+Najafgarh+Road+Shivaji+Marg+Moti+Nagar+New+Delhi+110015">Maps</a>
+            <button class="ics-btn" data-title="Chowki — Akshit weds Rajveer" data-start="20260902T133000Z" data-end="20260902T180000Z" data-loc="Majestic Crown, Ground Floor, 24 Najafgarh Road (Shivaji Marg), Moti Nagar, New Delhi 110015" data-desc="Chowki">+ Calendar</button>
+          </div>
+        </div>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">✦</span>2 September<i>Scratch to reveal</i></div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
+
+      <!-- 2 · SAGAN & RING CEREMONY -->
+      <div class="fcard reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">6 September</div>
+          <div class="f-name">Sagan &amp; Ring Ceremony</div>
+          <div class="f-tag">Where the promise begins</div>
+          <div class="f-line"></div>
+          <div class="f-date">Sunday, 6 September 2026</div>
+          <div class="f-venue">The Tivoli, Oak Wood Hall<br>1, Chattarpur Mandir Road, Block A,<br>Chattarpur Enclave, Mehrauli, New Delhi</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Tivoli+Chattarpur+Mandir+Road+Chattarpur+Enclave+Mehrauli+New+Delhi">Maps</a>
+            <button class="ics-btn" data-title="Sagan &amp; Ring Ceremony — Akshit weds Rajveer" data-start="20260906T133000Z" data-end="20260906T180000Z" data-loc="The Tivoli, Oak Wood Hall, 1 Chattarpur Mandir Road, Chattarpur Enclave, Mehrauli, New Delhi" data-desc="Sagan and Ring Ceremony">+ Calendar</button>
+          </div>
+        </div>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">✦</span>6 September<i>Scratch to reveal</i></div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
+
+      <!-- 3 · MEHENDI & COCKTAIL -->
+      <div class="fcard reveal" data-scratch>
+        <div class="fcard-base">
+          <div class="f-day">11 September</div>
+          <div class="f-name">Mehendi &amp; Cocktail</div>
+          <div class="f-tag">Colours, dhol &amp; a long night of dancing</div>
+          <div class="f-line"></div>
+          <div class="f-date">Friday, 11 September 2026</div>
+          <div class="f-venue">The Mansion Hotel &amp; Banquet<br>H-4, FC-57, Road Number 43, Suvidha Kunj,<br>Pocket B, Pitampura, New Delhi 110034</div>
+          <div class="f-btns">
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=The+Mansion+Hotel+and+Banquet+FC-57+Road+Number+43+Suvidha+Kunj+Pitampura+New+Delhi+110034">Maps</a>
+            <button class="ics-btn" data-title="Mehendi &amp; Cocktail — Akshit weds Rajveer" data-start="20260911T133000Z" data-end="20260911T180000Z" data-loc="The Mansion Hotel &amp; Banquet, H-4, FC-57, Road Number 43, Suvidha Kunj, Pocket B, Pitampura, New Delhi 110034" data-desc="Mehendi and Cocktail">+ Calendar</button>
+          </div>
+        </div>
+        <canvas class="scratch"></canvas>
+        <div class="f-emblem"><span class="big">✦</span>11 September<i>Scratch to reveal</i></div>
+        <div class="f-hint">Swipe over the card</div>
+      </div>
+
+      <!-- 4 · WEDDING (heart) -->
       <div class="fcard heart reveal" data-scratch>
         <div class="fcard-base">
           <div class="f-day">13 September</div>
@@ -328,8 +387,8 @@ footer .fbless{font-family:'Playfair Display',serif;font-style:italic;font-size:
           <div class="f-date">Sunday, 13 September 2026</div>
           <div class="f-venue">Golden Apple, Twin District Center, Sector-10, Rohini, New Delhi 110085</div>
           <div class="f-btns">
-            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Golden+Apple+Sector+10+Rohini+New+Delhi">Maps</a>
-            <button class="ics-btn" data-title="The Wedding — Akshit weds Rajveer" data-start="20260913T123000Z" data-end="20260913T180000Z" data-loc="Golden Apple, Rohini, New Delhi" data-desc="The Wedding">+ Calendar</button>
+            <a class="maplink" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Golden+Apple+Twin+District+Center+Sector+10+Rohini+New+Delhi+110085">Maps</a>
+            <button class="ics-btn" data-title="The Wedding — Akshit weds Rajveer" data-start="20260913T123000Z" data-end="20260913T180000Z" data-loc="Golden Apple, Twin District Center, Sector 10, Rohini, New Delhi 110085" data-desc="The Wedding">+ Calendar</button>
           </div>
         </div>
         <canvas class="scratch"></canvas>
